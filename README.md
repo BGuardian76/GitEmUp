@@ -1,3 +1,5 @@
+<img src="assets/icon.png" width="96" height="96" alt="GitEmUp icon">
+
 # GitEmUp
 
 A fast, cross-platform GUI git client.
