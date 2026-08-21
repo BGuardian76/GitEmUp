@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-08-21
+### Added
+- Hex preview for binary files: right-click a binary file → "View as Hex" opens a detached, paginated hex-dump viewer with jump-to-offset and click-to-select-byte.
+- Binary file diffs: a real side-by-side byte-level comparison in every diff view, instead of "Binary file — cannot display diff".
+- Printable keyboard shortcuts cheat sheet (Ctrl/Cmd+Shift+?), as its own window alongside the existing `?` cheat sheet.
+
+### Fixed
+- Console export button silently doing nothing (missing filesystem write permission).
+- Repo Stats silently regenerating (a full history walk) on routine cache invalidation instead of only on an explicit Refresh.
+- DevTools/Inspect Element were still actually shipping in production builds despite the previous release's fix attempt — the Cargo feature gate never worked as intended; this is now genuinely resolved.
+- Text selection and copy broken app-wide in production builds (WebKitGTK requires the `-webkit-user-select` CSS prefix, not just the standard property).
+
 ## [0.4.0] - 2026-08-21
 ### Added
 - Git worktree support: list/add/open/remove/lock/prune from a sidebar panel and management window.
