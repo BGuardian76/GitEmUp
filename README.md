@@ -1,4 +1,4 @@
-<img src="assets/icon.png" width="96" height="96" alt="GitEmUp icon">
+<img src="./assets/social-preview-rgb.png" width="640" height="370" alt="GitEmUp">
 
 # GitEmUp
 
