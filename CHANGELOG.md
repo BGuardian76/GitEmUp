@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-08-24
+### Added
+- Pull request polish: draft PRs, mark-ready-for-review, edit title/description, PR/MR templates, "create a PR?" prompt after first push — across GitHub/GitLab/Azure DevOps/Gitea/Bitbucket
+- Commit composer Simple/Extended modes (conventional-commit fields, subject counter, co-author picker), plus commit.template support
+- Repo digest window — activity summary per branch since a chosen date
+- Command palette: git-mutating commands, :group filtering, per-item actions (checkout/cherry-pick), live commit search
+- Real CSP enabled on the webview (was previously disabled)
+
+### Fixed
+- Push left a stale "ahead" count until next fetch
+- Push button didn't show its in-progress state
+- Toolbar collapses to icon-only on narrow windows
+- Help window cross-page anchor links now scroll correctly; external doc links open in the OS browser
+- Proper Cut/Copy/Paste context menu on text fields
+- Guard against removing a currently-open repo from the Repositories Hub
+- A couple of overlay menus (notification bell included) no longer render behind other UI
+- (unreleased, just fixed) the CSP hash Tauri auto-injects for index.html's inline <style> block was silently disabling unsafe-inline for all other inline styles in production builds — broke Help docs and diff rendering after tauri build. Fixed by moving that CSS out of index.html into the bundled stylesheet.
+
 ## [0.4.1] - 2026-08-21
 ### Added
 - Hex preview for binary files: right-click a binary file → "View as Hex" opens a detached, paginated hex-dump viewer with jump-to-offset and click-to-select-byte.
