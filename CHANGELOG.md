@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-08-31
+### Added
+- SSH support for repos: clone/fetch/pull/push over SSH with automatic ssh-agent auth, an optional key-file fallback (path + passphrase, per credential profile or one-off per-clone), and known_hosts-style host key verification (silent when known, one-time confirm when unknown, hard refusal when changed).
+- Credential profiles now hold SSH fields alongside HTTPS ones, so one profile can serve either kind of remote.
+- On an SSH repo with a PR-capable provider, a separate "This Repository's Credentials for Pull Requests" profile picker (PR/API access is always HTTPS-token-based, even over an SSH remote).
+- Repo Explorer window, replacing the separate File Explorer and Content Search windows: one per-repo window with a file tree / content-search-results toggle.
+
+### Changed
+- Windows/Linux: the AES-256 key that decrypts stored credentials now lives in the OS keychain (Windows Credential Manager / Secret Service) instead of a plaintext-adjacent key file, migrated automatically on first launch; falls back to the old file-based approach if no keychain is reachable. macOS unchanged.
+
+### Fixed
+- App-close confirmation dialog could crash the app on Linux (native GTK dialog racing the app's own event loop during teardown); replaced with an in-app dialog.
+- SSH with an Ed25519 key silently failed to authenticate on Windows only (incomplete Ed25519 support in Windows' default crypto backend); now routed through the same OpenSSL backend used for HTTPS.
+- A console window would briefly flash on Windows during SSH host-key checks.
+- Color pickers on Windows closed after the first click, before a color could be picked.
+- Adding a new credential profile from inside the Clone dialog closed the whole Clone dialog.
+- `origin/HEAD` could leak into the branch list with an empty commit ID, breaking branch-scoped commands.
+- Creating and checking out a new branch from a dirty working tree now succeeds whenever the new branch points at HEAD's own commit, matching plain `git checkout -b`.
+- Guarded against a keychain-read hiccup silently minting a replacement encryption key and orphaning stored credentials.
+
 ## [0.4.2] - 2026-08-24
 ### Added
 - Pull request polish: draft PRs, mark-ready-for-review, edit title/description, PR/MR templates, "create a PR?" prompt after first push — across GitHub/GitLab/Azure DevOps/Gitea/Bitbucket
