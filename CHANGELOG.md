@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-09-03
+### Added
+- Repo Digest: header stats (total commits/contributors/active branches), per-branch diffstat and live ahead/behind count, last-commit summary shown even on branches with no new activity, stale branches collapsed into their own section, new-remote-branch detection, and a per-author commit drill-down window.
+- Commit graph: optional Changes column (insertions/deletions pie + count), a hover Info button per row (also in the Branch/Contributor History windows), and SHA search (full or short, prefix-matched) alongside description/author.
+- Blame now available in the Staging panel and File Compare Window, in addition to the Commit Detail Panel and Diff Viewer Window, blaming each side of a diff independently where there are two. Repo Explorer's file history Blame now follows whichever version is currently previewed instead of only HEAD.
+- Image preview (PNG/JPEG/GIF/SVG/WEBP/BMP/ICO) and HTML preview (read-only, sanitized — scripts/iframes/event-handlers always stripped).
+- Diff settings tab: diff algorithm (Myers/Minimal/Patience), whitespace handling, merge conflict marker style (Merge/Diff3), and an optional auto-resolve favor (ours/theirs/union).
+- Stats: top commits by additions and by removals, per selected range.
+- Branches panel context menu: Copy Branch Name, Compare with Current Branch, Create Branch/Tag/Worktree Here, Push, Publish Branch, Change Upstream, Stop Tracking, Fetch This Branch, Create Pull Request from Branch, Reflog for This Branch, Delete Remote Branch.
+
+### Fixed
+- Markdown preview sanitization now explicitly matches the same safe-HTML allowlist used for PR descriptions/comments.
+- A pushed branch's ref chip (e.g. `origin/main`) in the History tab could stay stuck on the old commit — push now also invalidates the commit graph's cached ref labels, not just branch ahead/behind state.
+- Commit history list could lose its scroll position after switching away from the History tab and back.
+
 ## [0.4.3] - 2026-08-31
 ### Added
 - SSH support for repos: clone/fetch/pull/push over SSH with automatic ssh-agent auth, an optional key-file fallback (path + passphrase, per credential profile or one-off per-clone), and known_hosts-style host key verification (silent when known, one-time confirm when unknown, hard refusal when changed).
