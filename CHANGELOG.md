@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5] - 2026-09-09
+### Added
+- Issue tracker badges: link Jira (Cloud/Server) and/or Azure DevOps Boards accounts with a personal access token in Settings → Authentication. Commits and branches referencing a ticket key get a clickable badge with a live title/status/assignee tooltip; multiple independent connections are supported. Read-only — no ticket is ever created, edited, or transitioned.
+- Per-line staging: hunk-level staging now goes down to individual lines, in both Full file diff and Side by side view. A Staged/Unstaged badge on the diff pane makes clear which side of the index is shown.
+- Repo Explorer: untracked/ignored files now show in the tree with four independent filter chips (tracked/deleted/untracked/ignored), a real hex-grid preview for binary files, blame "reblame" navigation (step a blamed line's edit history back/forward), and a status-aware right-click menu (restore a deleted file, toggle `.gitignore`).
+- Git notes: a shareable, per-commit annotation stored in git's own standard `refs/notes/commits`, separate from the existing private per-repo Notes tab. Add/edit from a commit's right-click menu; shown in the Commit Info dialog and as a graph badge. Sync is a manual, separate action next to Force Push.
+- Git LFS awareness: an LFS-tracked file's diff now shows its real object size instead of raw pointer text, for committed, staged, and untracked pointer files alike. New File size format setting (raw bytes vs. human-readable KB/MB/GB).
+- Diff toolbar: a ¶ toggle to show whitespace characters directly (spaces as dots, tabs as arrows).
+
+### Fixed
+- Pasting into any text field silently failed on Linux ("clipboard access was denied") — the Cut/Copy/Paste menu relied on the browser's own clipboard API, which Tauri's Linux webview doesn't reliably support for reading; switched to Tauri's native clipboard plugin on every platform.
+- Azure DevOps pull requests had no way to open in a browser — Azure's PR API doesn't return a browsable link the way its repository API does, so the button silently never appeared; GitEmUp now builds the standard PR URL itself when the API doesn't supply one.
+- "Open in browser" links (PR details, issue tracker badges) could silently do nothing on Linux, relying on a plain link click a webview can swallow instead of launching the system browser; routed through Tauri's opener plugin everywhere.
+- A file staged/unstaged partially and then acted on with a whole-file Stage/Unstage/Discard could leave its diff pane showing stale, already-reverted content indefinitely.
+- A staging click fired while another was still in flight could occasionally compute against stale content instead of the one just applied; concurrent clicks are now serialized so one is always either applied cleanly or safely ignored.
+
 ## [0.4.4] - 2026-09-03
 ### Added
 - Repo Digest: header stats (total commits/contributors/active branches), per-branch diffstat and live ahead/behind count, last-commit summary shown even on branches with no new activity, stale branches collapsed into their own section, new-remote-branch detection, and a per-author commit drill-down window.
