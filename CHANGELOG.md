@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.6] - 2026-09-14
+### Added
+- CI/CD Builds: a read-only list of recent runs for the repository's native CI provider (GitHub Actions, GitLab CI, Azure Pipelines, or Bitbucket Pipelines) via Collaborate → CI/CD Builds — auto-detected the same way Pull Requests are, reusing the same assigned credential, no separate connection or token needed. Each run shows status, branch, commit, trigger, and time; click to open it in the browser. A branch filter narrows the list, and right-click offers "Open Pipeline Definition" (the workflow's/pipeline's own run-history page) on GitHub Actions and Azure Pipelines in addition to the specific run. Self-hosted providers and deployments are not included yet.
+- CI/CD branch badges: an opt-in status badge on branch names in the Branches panel reflecting each branch's latest CI/CD run, so you don't need to open the Builds window to check. Off by default (Settings → Issue Trackers → CI/CD Branch Badges), since enabling it means a background API call whenever the panel is visible; choose local branches only (default) or local and remote-tracking branches.
+
 ## [0.4.5] - 2026-09-09
 ### Added
 - Issue tracker badges: link Jira (Cloud/Server) and/or Azure DevOps Boards accounts with a personal access token in Settings → Authentication. Commits and branches referencing a ticket key get a clickable badge with a live title/status/assignee tooltip; multiple independent connections are supported. Read-only — no ticket is ever created, edited, or transitioned.
