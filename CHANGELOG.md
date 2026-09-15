@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.7] - 2026-09-15
+### Added
+- CI/CD Deployments: a second tab in the CI/CD Builds window listing recent deployments per environment (status, branch/commit when resolvable, and time), for GitHub, GitLab, Bitbucket, and Azure DevOps. Azure tries the modern multi-stage Environments API first and falls back to classic Release Pipelines automatically; if a deployment's linked build was purged by Azure's retention policy, the build number is shown in place of a missing branch name. Gitea has no deployment-tracking API, so its Deployments tab shows an explanatory message instead of an empty list.
+- CI/CD stage/job-level detail: expand a run in the Builds tab to see its individual stages or jobs (name, status, timing), fetched only on expand — shows a multi-stage pipeline's manual approval gate as its own entry instead of one overall run status.
+- CI/CD status badges now also appear on commit rows in the commit graph (new, separate Settings → CI/CD toggle) and next to each pull request's target branch in the Pull Requests list (reuses the existing branch-badge setting).
+- CI/CD auto-refresh: the Builds and Deployments lists now poll automatically, but only while something in the list is running, queued, or pending, and back off entirely if a provider returns a rate-limit error.
+- Gitea CI/CD support (self-hosted only, via a registered custom provider) alongside the four native cloud providers.
+
+### Changed
+- Settings: CI/CD badge settings moved out of Issue Trackers into their own dedicated CI/CD tab (eleven tabs total), alongside the new commit-graph badge toggle. The Settings dialog also got a visual refresh — per-tab icons and a wider dialog.
+
 ## [0.4.6] - 2026-09-14
 ### Added
 - CI/CD Builds: a read-only list of recent runs for the repository's native CI provider (GitHub Actions, GitLab CI, Azure Pipelines, or Bitbucket Pipelines) via Collaborate → CI/CD Builds — auto-detected the same way Pull Requests are, reusing the same assigned credential, no separate connection or token needed. Each run shows status, branch, commit, trigger, and time; click to open it in the browser. A branch filter narrows the list, and right-click offers "Open Pipeline Definition" (the workflow's/pipeline's own run-history page) on GitHub Actions and Azure Pipelines in addition to the specific run. Self-hosted providers and deployments are not included yet.
