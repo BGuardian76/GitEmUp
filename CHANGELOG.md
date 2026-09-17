@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.8] - 2026-09-17
+### Added
+- AI integration: GitEmUp can now shell out to an AI CLI tool you already have installed and signed in (Claude Code, aider, and others). There's no GitEmUp-hosted AI and no API key involved — every feature runs exactly the command you configure, using whatever authentication that tool already has set up.
+- **Explore → Open in editor** launches a configured code editor (VS Code, Cursor, Sublime Text, etc.) at the repository root, with a Detect button and a per-repository override.
+- **Explore → Open in AI tool** does the same for an AI CLI, launching it in a fresh terminal session at the repository root, the same idea as the existing Terminal button.
+- A sparkle button next to the commit composer's Simple/Extended pill pipes the staged diff through a configured, non-interactive AI command and fills in the commit message with its response.
+- A matching sparkle button on the pull request create form does the same for the title and description, diffing the merge-base of the base branch and the head branch against the head branch's tip.
+- Both AI-generation features share an **AI generation command** setting — the tool's own "print and exit" flag is required (Claude Code's is `-p`), since these run non-interactively rather than opening a session. Diffs over 100,000 characters are truncated before being sent.
+- AI tool config file shortcuts: when the configured AI tool command matches one GitEmUp recognizes (`claude`, `aider`, `codex`, `cursor-agent`, `amp`, `opencode`, or `goose`), two buttons appear in Settings → AI to open that tool's own global or repository-level config file directly in your configured editor, if it already exists.
+
+### Changed
+- Settings gains a dedicated **AI** tab, split out of Tools, which also picks up a new configurable **Editor application** setting.
+
+### Fixed
+- Flickering scrollbar on the Branches panel while a CI/CD build was running, caused by the running-build icon's animation.
+- "Open in editor" and "Open in AI tool" failing to launch correctly on Windows.
+
 ## [0.4.7] - 2026-09-15
 ### Added
 - CI/CD Deployments: a second tab in the CI/CD Builds window listing recent deployments per environment (status, branch/commit when resolvable, and time), for GitHub, GitLab, Bitbucket, and Azure DevOps. Azure tries the modern multi-stage Environments API first and falls back to classic Release Pipelines automatically; if a deployment's linked build was purged by Azure's retention policy, the build number is shown in place of a missing branch name. Gitea has no deployment-tracking API, so its Deployments tab shows an explanatory message instead of an empty list.
