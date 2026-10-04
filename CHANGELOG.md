@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.9] - 2026-10-04
+### Added
+- Background fetch: GitEmUp fetches the remotes your local branches track a few seconds after a repository opens and every 10 minutes after that, so the **Pull** button and the branch list show when a branch is behind. Like a manual fetch, it only updates remote-tracking branches; your local branches, staged changes and files are never touched. Failures (offline, missing credentials) stay silent, and an SSH host you haven't trusted yet is skipped instead of showing the trust dialog. On by default; turn it off or change the interval (5 to 60 minutes) in **Settings → Workflow**.
+- "Branch behind" notifications: when a background fetch brings in new commits for one of your local branches while GitEmUp isn't the focused window, a system notification says which branch is behind, once per new set of commits. Can be turned off separately in **Settings → Workflow**.
+- Customizable AI prompts: the instructions sent with the diff when generating a commit message or a pull request title and description can be edited in **Settings → AI → AI prompts**, with `{diff}`, `{base}` and `{head}` placeholders, a **Copy default** button, and per-repository overrides.
+
+### Changed
+- The Commit panel in the Changes tab is now a resizable pane: drag it taller for long descriptions, and the height is remembered. It never shrinks below what its contents need, and switching between Simple and Extended grows or shrinks it by the extra rows so the message box keeps its size.
+- Upgraded to Tauri 2.12.1, with updated clipboard, dialog, file system, notification and opener plugins.
+
+### Fixed
+- Window titles now show the repository and current branch (e.g. `repo [branch] — GitEmUp`) and update when you switch branches, including on Linux/Wayland, where the title previously never changed.
+- Opening a repository could sometimes create a duplicate window for it.
+
 ## [0.4.8] - 2026-09-17
 ### Added
 - AI integration: GitEmUp can now shell out to an AI CLI tool you already have installed and signed in (Claude Code, aider, and others). There's no GitEmUp-hosted AI and no API key involved — every feature runs exactly the command you configure, using whatever authentication that tool already has set up.
