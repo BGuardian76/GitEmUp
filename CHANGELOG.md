@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.4.10] - 2026-10-09
 ### Added
 - Clone Multiple: **Clone Multiple…** in the Repositories Hub (and the command palette) lists the repositories in an Azure DevOps organization or collection (cloud or Server) or on GitHub (github.com or Enterprise) using a credential profile's API token. Tick the ones you want, pick a base folder, a layout (**Project / repository** or **Flat**), HTTPS or SSH and optionally a shallow clone, and they're cloned one after another. Existing non-empty folders are skipped, never overwritten, so re-running a batch only clones what's missing. Cloned repositories get the batch's credential profile and are added to the Hub under `<organization> / <project>` (or `<owner>`).
 - Fetch / Pull many repositories: **Fetch / Pull…** in the Repositories Hub (also on each Hub folder, and in the command palette) fetches or pulls every repository in a folder, or the whole Hub, one after another, without opening them. **Pull all** only fast-forwards: repositories with uncommitted changes, local commits, a merge or rebase in progress, a detached HEAD or no upstream are skipped with the reason. Each row shows its progress, **Stop** cancels the current repository, and a summary counts updated, unchanged, skipped and failed.
