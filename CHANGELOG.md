@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Clone Multiple: **Clone Multiple…** in the Repositories Hub (and the command palette) lists the repositories in an Azure DevOps organization or collection (cloud or Server) or on GitHub (github.com or Enterprise) using a credential profile's API token. Tick the ones you want, pick a base folder, a layout (**Project / repository** or **Flat**), HTTPS or SSH and optionally a shallow clone, and they're cloned one after another. Existing non-empty folders are skipped, never overwritten, so re-running a batch only clones what's missing. Cloned repositories get the batch's credential profile and are added to the Hub under `<organization> / <project>` (or `<owner>`).
+- Fetch / Pull many repositories: **Fetch / Pull…** in the Repositories Hub (also on each Hub folder, and in the command palette) fetches or pulls every repository in a folder, or the whole Hub, one after another, without opening them. **Pull all** only fast-forwards: repositories with uncommitted changes, local commits, a merge or rebase in progress, a detached HEAD or no upstream are skipped with the reason. Each row shows its progress, **Stop** cancels the current repository, and a summary counts updated, unchanged, skipped and failed.
+- Progress and Stop for clone, fetch and pull: the dialogs show the server's messages, objects received (with the amount downloaded), deltas resolved and files checked out, with a progress bar. **Cancel** becomes **Stop** while they run. A stopped clone removes its half-cloned folder and a stopped fetch or pull changes nothing; a pull can't be stopped once it's applying the changes. Push can't be stopped.
+- **Max diff file size (MB)** setting in Settings → Diff (default 5 MB): files bigger than this are never diffed line by line. The diff viewer shows a "too large to diff" placeholder with the size, the Commit Info dialog shows a **too large · size** badge, the Repo Explorer's file preview shows a "too large to preview" notice, and Stats and the commit graph's +/- counts count the file as changed without its lines. Exported patches always include the full content.
+
+### Changed
+- The Repositories Hub is no longer limited to the 20 most recent repositories: it keeps every repository you add until you remove it. The list moved from `settings.json` to its own `repos.json` (migrated automatically on first start), and status chips load only for visible rows.
+- The diff viewer is much faster on large files with scattered edits: it lines up whole lines first and only compares characters inside each changed block.
+- Commit details, diffs and +/- counts, Commit Info, Contributors, contributor history, commits between branches, blame and line history, file previews and downloads, patch exports and content search now run in the background, so a slow one no longer freezes every window.
+- Panels show **Loading…** instead of briefly showing their empty-state message, the branch row shows a spinner during checkout or fast-forward (and blocks a second one), and the submodule Update icon spins while it runs.
+- Confirmations and messages are now dialogs inside GitEmUp instead of system dialogs, including the "Unknown SSH Host" prompt. File and folder pickers still use the system dialog.
+- SSH: if neither ssh-agent nor a configured key file works, your default keys (`~/.ssh/id_ed25519`, `id_ecdsa`, `id_rsa`) are tried too, like the `ssh` command does. Passphrase-protected keys are skipped.
+
+### Fixed
+- Crashes on Linux when a system confirmation or message dialog was shown, most often when closing a window.
+- SSH servers on a non-standard port (e.g. `:2222` or `:443`) are now checked and trusted as `[host]:port` in `~/.ssh/known_hosts`; previously they were recorded as the port-22 host, which could cause a false "host key has changed" error.
+- Stats on a large repository no longer freeze the window, and file versions over the Max diff file size no longer keep the stats walk running for hours.
+- Opening a commit, stash, branch comparison or working-tree change that touched a very large file no longer freezes GitEmUp.
+- **Open in new window** sometimes did nothing: for a repository first opened in a window that had since switched to another repository, or when its window was minimized. It now always opens a window or restores and focuses the existing one, and a repository that fails to open in a new window says why instead of showing an empty Hub.
+- Clone folder names Windows can't use (`CON`, `NUL`, `COM1`, …) are rejected up front.
 
 ## [0.4.9] - 2026-10-04
 ### Added
