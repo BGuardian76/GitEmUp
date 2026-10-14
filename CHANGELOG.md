@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+**Pre-release for testing:** please try the new features on your own repositories and report anything unexpected, especially **Resolve conflicts locally**, which hasn't been tested against every kind of branch policy yet.
+
+### Added
+- Preview merge conflicts: right-click a remote branch (e.g. `origin/main`) → **Preview Merge Conflicts (your-branch → origin/main)…** to see whether merging your current branch into it would conflict, before opening a pull request. It checks the server first (offering **Fetch and preview** if your copy is behind), merges in memory without touching your files or branches, and lists the conflicting files with their kind. Click a file for a read-only three-way view; files added on both sides show their shared lines normally. It warns about commits that aren't pushed, and **Create Pull Request…** opens the form with both branches filled in.
+- Resolve pull request conflicts locally: an open pull request with merge conflicts shows **Resolve conflicts locally**. It merges the target branch into the PR's branch in a separate worktree, on a temporary `resolve/pr-<number>` branch started from the server's copy, and opens it in its own window, where a banner guides you through resolving, committing and pushing. Your own branch and files are never touched, nothing is pushed until you click the banner's push button, and the push only goes out if nothing on the server would be replaced. On Azure DevOps it checks branch policies first: a protected PR branch gets the resolution through a new branch and a second pull request, and you're warned when the push will reset approvals. **Delete worktree…** removes it afterwards, after asking.
+- **Allow rebase when resolving pull request conflicts** setting in Settings → Workflow (off by default): offers Rebase besides Merge, with a force push that's refused if anyone pushed to the branch meanwhile.
+- **Repository → Credential leak check**: scans the open repository's `.git` folder (worktrees and submodules included) for passwords and tokens embedded in URLs, lists them with the secret hidden, and **Remove credentials** removes them while keeping usernames, so remotes keep working.
+- **Remove credentials from cloned repositories** setting in Settings → Workflow (on by default): runs the same cleanup after every clone.
+- Azure DevOps pull requests list every reviewer with their vote (Approved, Approved with suggestions, Waiting for author, Rejected, Declined, No vote), required reviewers first, as Azure DevOps shows them.
+- Create pull request: **From** also lists the server's branches you don't have locally, and a line under the branch pickers says whether the pull request would conflict, with **View** opening the merge preview.
+
+### Changed
+- Pull request approvals match the provider: on Azure DevOps the required count comes from the *Minimum number of reviewers* policy, *Approved with suggestions* counts as an approval, and group and author votes don't; on GitHub the required count is read from the branch's rulesets and branch protection. Completed and abandoned pull requests show their outcome instead of *Pending review*. The *Block merge when approvals are missing* setting now works on GitHub and Azure DevOps.
+- The merge dialog only offers the strategies the provider applies (GitLab: merge or squash; Bitbucket Server: the repository's default), and shows the provider's own message when it refuses a merge.
+- Create pull request: the conflict check, commit list and AI-generated text use the server's copies of both branches.
+- The Repositories Hub's unread pull request count notices new comments, votes and pushes on Azure DevOps pull requests, not only new pull requests.
+
+### Fixed
+- HTTPS clones made with a credential (Clone dialog and Clone Multiple) left your username and token in plain text in the new repository's reflogs (`.git/logs`). Clones now send credentials only when the server asks for them and never write them into the repository. Run **Repository → Credential leak check** on repositories cloned with earlier versions.
+- GitLab merge requests merged with **Rebase** got a normal merge commit.
+- Bitbucket Server merges ignored the chosen strategy without saying so.
+- Completed or abandoned Azure DevOps pull requests showed *Pending review*, and could list policies that no longer applied.
+- Creating a pull request into a branch whose local copy was behind the server could list commits the pull request doesn't contain.
+- Interactive rebase inside a linked worktree wasn't recognized, so it couldn't be continued or aborted from GitEmUp.
 
 ## [0.4.10] - 2026-10-09
 ### Added
