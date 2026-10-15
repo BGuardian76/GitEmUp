@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+**Pre-release for testing:** most of what's new writes to the server (votes, reviewers, comments, work item links, completing a pull request), so please try it first on a pull request where a mistake is easy to undo, and report anything unexpected.
+
+### Added
+- Review pull requests on Azure DevOps and GitHub: open pull requests show which account you vote as (**Voting as**: the owner of the repository's token, not your git name) and your vote or review actions. Azure DevOps: **Approve**, **Approve with suggestions**, **Wait for author**, **Reject** and **Reset vote**, with your current vote highlighted. GitHub: **Approve**, **Request changes** and **Comment** reviews with a message.
+- Manage reviewers from the pull request: **Add** searches people and groups in your Azure DevOps organization (optionally as required reviewers) or lists the GitHub repository's collaborators, and **×** removes a reviewer after asking.
+- **Abandon / Reactivate** (Azure DevOps) and **Close / Reopen** (GitHub) in the pull request's header.
+- Conversation threads: the pull request detail shows its conversation as threads, general or on lines of code, with replies, statuses (Azure DevOps: Active, Pending, Resolved, Won't fix, Closed, By design; GitHub: Resolve / Unresolve), All / Active / Resolved filters, collapsed resolved threads and, on Azure DevOps, activity hidden behind **Show activity**.
+- **Files changed** window: **Files** in the pull request's header opens its diff (the source commit against its merge base, computed from your local repository, with **Fetch** when commits are missing) with a file list, comment counts and each file's threads. On Azure DevOps and GitHub, click the column next to the line numbers to comment on a line. Changes sync with the pull request detail window.
+- Linked work items: pull requests list their linked Azure DevOps work items or the GitHub issues they close, with type, state and assignee. **Link** searches by title or number (with suggestions when nothing is typed) and **×** unlinks. On GitHub, linking adds a `Closes #N` line to the description, for pull requests into the default branch.
+- Completion options in the merge dialog (Azure DevOps and GitHub): **Delete the source branch after merging**, **Complete linked work items after merging** (Azure DevOps) and a custom merge commit message.
+- **Set auto-complete** (Azure DevOps) / **Enable auto-merge** (GitHub) in the merge dialog lets the provider merge once approvals and checks pass; the pull request shows who set it, with a button to cancel.
+- Create pull request: reviewers on Azure DevOps (with a **required** tick per reviewer), and a **Work items** / **Linked issues** field on Azure DevOps and GitHub. Both searches work with ↑/↓ and Enter.
+
+### Changed
+- Merging an Azure DevOps or GitHub pull request names the source commit GitEmUp last read, so the provider refuses the merge if someone pushed meanwhile instead of merging commits you haven't seen.
+- Token guides list the permissions the new features need: Azure DevOps **Work Items (Read & write)** to link work items (Code access alone shows their numbers), and for GitHub fine-grained tokens **Contents (Read and write)** to merge and delete branches and **Issues (Read)** for linked issues.
+
+### Fixed
+- Creating a GitHub pull request with reviewers silently dropped the ones GitHub refused. The form now says the pull request was created and lists each refused reviewer with the reason.
 
 ## [0.4.15] - 2026-10-14
 **Pre-release for testing:** please try the new features on your own repositories and report anything unexpected, especially **Resolve conflicts locally**, which hasn't been tested against every kind of branch policy yet.
