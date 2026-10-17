@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+**Pre-release for testing:** the Repositories Hub has a new layout, so please check that your pinned repositories and folders all show up where you expect, and report anything unexpected.
+
+### Added
+- Repository Hub: **New folder** creates an empty folder; a folder's header totals how many of its repositories have changes, are behind or are ahead; and rows show **This window** or **Open** when the repository is already open in a window.
+
+### Changed
+- Repository Hub redesign: two panes, with **Pinned**, **Recent** (last 15, newest first), **All repositories**, the folder tree and **No folder** on the left and the selected view's repositories on the right. Folders are sorted by name and no longer reorder when you open a repository; only **Recent** follows opening order, the other views sort by **Name** or **Recent**. Folder actions (fetch/pull, rename, remove) sit next to the selected folder's name, search covers every repository with ↑/↓, Enter and Ctrl+Enter (new window), rows have a right-click menu and middle-click opens in a new window. The Hub remembers the view, sort and expanded folders, and switches to a dropdown in narrow windows.
+- Hub folders stay until you remove them, even after their last repository moves out.
+
+### Fixed
+- When a Hub repository can't be opened (its folder was moved or deleted), the error offers **Close & Remove** again to drop the stale entry.
+- The Tools panel, its confirmations and the messages after stash, remote, branch rename, fast-forward and tag actions were always in English; they're translated now.
+- Removing a nested Hub folder moved its repositories out of every folder and turned its subfolders into top-level folders. Its contents now move up one level: removing `Work/ClientA` files its repositories under `Work`, and `Work/ClientA/X` becomes `Work/X`.
 
 ## [0.4.16] - 2026-10-15
 **Pre-release for testing:** most of what's new writes to the server (votes, reviewers, comments, work item links, completing a pull request), so please try it first on a pull request where a mistake is easy to undo, and report anything unexpected.
