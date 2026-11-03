@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.20] - 2026-11-03
 ### Added
 - Pull request tags (Azure DevOps) and labels (GitHub): shown as chips on pull request rows and in the pull request, with a list filter, add/remove from the pull request and a field in the Create form. Azure DevOps suggests tags used on recent pull requests; GitHub offers the repository's labels in their colors, and any label GitHub refuses on create is listed with the reason.
 - Required tags: a local, per-repository rule (all or any of a list of tags, optionally only for pull requests into certain branches, with `*` wildcards). The Create form, the pull request and the list warn when tags are missing, with one-click **Add them** and a **Missing required tags** filter. It's a reminder only: nothing is blocked.
