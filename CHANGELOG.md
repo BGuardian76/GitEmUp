@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Pull request tags (Azure DevOps) and labels (GitHub): shown as chips on pull request rows and in the pull request, with a list filter, add/remove from the pull request and a field in the Create form. Azure DevOps suggests tags used on recent pull requests; GitHub offers the repository's labels in their colors, and any label GitHub refuses on create is listed with the reason.
+- Required tags: a local, per-repository rule (all or any of a list of tags, optionally only for pull requests into certain branches, with `*` wildcards). The Create form, the pull request and the list warn when tags are missing, with one-click **Add them** and a **Missing required tags** filter. It's a reminder only: nothing is blocked.
+- Switchable layouts, from a layout button in each area or **Settings → Appearance → Layouts**: four layouts for the Changes tab; graph above or beside details in History; files beside or above the diff in commit details; the sidebar on the left or right, with its sections stacked or as tabs; and list beside or above for Repo Explorer, the commit diff window, Branch compare, Merge preview, Pull request files, Branch history, Contributor history and the Pull Requests window. Each layout keeps its own pane sizes.
+- Docs panel: a **Docs** section in the sidebar lists the repository's README, changelog, license, contributing and other standard files plus the `docs/` folder, with last-change dates and a dot for uncommitted changes. Files open in a per-repository **Docs reader** window with back/forward, links between docs, heading anchors, images and **Open in editor**. The Repositories Hub gets **View README**, also for repositories that aren't open.
+- Changes tab file menu: **Stage** / **Unstage**, **Discard** on staged files (unstages then discards; a new file is deleted), **Copy Relative Path**, **Copy File Name** and **Open in Editor**.
+- File menu for a commit's files in History: **Preview This Version**, **View This Version as Hex**, **Open This Version with…**, **Save This Version As…**, **Blame at This Commit**, **Compare with Working Tree**, and **Restore File to This Version** / **Restore File to Before This Commit** (left unstaged, after a confirmation that warns about uncommitted changes).
+- The Compare window's right side offers **Working tree (current file)**.
+
+### Changed
+- Pull Requests window: the selected pull request shows next to the list instead of in its own window. ↑/↓/Home/End move the selection, each tab remembers its selected pull request, and the list can sit beside or above. Double-click, middle-click or the pop-out button opens a pull request in its own window. Notifications and Issue activity select the pull request in the window, and a newly created one is selected in the Open tab.
+- The pull request view has a header with every action and your vote, a status line (checks, approvals, review state, blocking checks, conflicts, auto-complete/auto-merge with cancel), and **Overview** (description with a rail for reviewers, checks, tags/labels and work items), **Commits**, **Files** and **Discussion** tabs. Files changed is now a tab, with a pop-out button for its own window, and comment locations in Discussion open there.
+- Files restored or saved from a commit are written as a checkout would write them: line endings follow `core.autocrlf` and `.gitattributes`, and the executable bit and symlinks are kept. **Open This Version with…** uses a fresh temp folder per copy and clears out folders older than a day.
+
+### Fixed
+- The collapsed commit area could vanish, header and expand button included, when a window started on the History tab.
+- The commit area now opens again once all merge conflicts are resolved if they had collapsed it, so **Complete merge** doesn't stay hidden.
+- Context menus and submenus stay on screen when the window is resized or items appear after they open, and scroll when taller than the window.
+- The reviewer, work item and tag/label dropdowns in the pull request forms open above their box when there's more room there, instead of being cut off by scrolling panels.
+- Branch history, Contributor history and Repo Explorer windows didn't show notifications or error messages.
+
 ## [0.4.17] - 2026-10-17
 **Pre-release for testing:** the Repositories Hub has a new layout, so please check that your pinned repositories and folders all show up where you expect, and report anything unexpected.
 
