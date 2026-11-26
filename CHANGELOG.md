@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Issues → In this repo**: a new tab listing every issue the repository mentions in commit messages (all branches), branch names, tags, stashes and its most recent pull requests, with a period selector for how far back commits are scanned. Titles and statuses come from one batched request per tracker connection (GitHub without a token looks up only the 20 most recently active issues). Rows show commits, branches, tags, stashes and pull requests per issue and whether its work is in the base branch; expanded, they list authors, the last commit, branches with merged state and **Checkout**, and pull requests that open in the Pull Requests window. Status chips filter by status, and **need attention** shows mismatches: done but not merged, done with a pull request still open, work started but still to do, and keys the tracker doesn't know.
+- File list filter: lists of changed files with 15 or more files (commit details, Changes, Diff Viewer, Branch compare, Merge preview, pull request Files, Commit Info, patch preview) get a filter box that matches every word against the path, with a shown/total count and status chips (A, M, D, R…) to hide or show each kind of change. **Cmd/Ctrl+F** focuses it in the tool windows and on the Changes tab, **Cmd/Ctrl+Alt+F** on the Changes tab or in commit details. The threshold is set in **Settings → Workflow → Show file filter from** (0 always shows it).
+- Find in files and diffs: **Cmd/Ctrl+F** opens a find bar in every diff and file view, the conflict views, the Markdown and HTML previews and the Docs reader, with match case, whole word and regex toggles. **Enter** / **F3** and **Shift+Enter** / **Shift+F3** move between matches. In diffs it shows a current/total count and, side by side, an Old/New switch. A Repo Explorer content search carries its term into the preview's find bar.
+- Catppuccin Latte, Frappé, Macchiato and Mocha themes.
+
+### Changed
+- **Collaborate → My Issues** is now **Collaborate → Issues**, with the assigned list in its **Assigned to me** tab.
+- On the Changes tab, while the file filter is on, **+ All**, **− All**, the by-status menus, **Discard** and **Cmd/Ctrl+Shift+A / U** act only on the files it shows, and the Discard prompt says so.
+- The selected file in a commit's file list is kept by path, so it stays selected while filtering and on the next commit when that commit touches the same file.
+
 ## [0.4.20] - 2026-11-03
 ### Added
 - Pull request tags (Azure DevOps) and labels (GitHub): shown as chips on pull request rows and in the pull request, with a list filter, add/remove from the pull request and a field in the Create form. Azure DevOps suggests tags used on recent pull requests; GitHub offers the repository's labels in their colors, and any label GitHub refuses on create is listed with the reason.
