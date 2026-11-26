@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.21] - 2026-11-26
 ### Added
 - **Issues → In this repo**: a new tab listing every issue the repository mentions in commit messages (all branches), branch names, tags, stashes and its most recent pull requests, with a period selector for how far back commits are scanned. Titles and statuses come from one batched request per tracker connection (GitHub without a token looks up only the 20 most recently active issues). Rows show commits, branches, tags, stashes and pull requests per issue and whether its work is in the base branch; expanded, they list authors, the last commit, branches with merged state and **Checkout**, and pull requests that open in the Pull Requests window. Status chips filter by status, and **need attention** shows mismatches: done but not merged, done with a pull request still open, work started but still to do, and keys the tracker doesn't know.
 - File list filter: lists of changed files with 15 or more files (commit details, Changes, Diff Viewer, Branch compare, Merge preview, pull request Files, Commit Info, patch preview) get a filter box that matches every word against the path, with a shown/total count and status chips (A, M, D, R…) to hide or show each kind of change. **Cmd/Ctrl+F** focuses it in the tool windows and on the Changes tab, **Cmd/Ctrl+Alt+F** on the Changes tab or in commit details. The threshold is set in **Settings → Workflow → Show file filter from** (0 always shows it).
